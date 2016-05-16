@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            android:title="Benutzer" />
+        <item
+            android:id="@+id/nav_cows"
+            android:icon="@drawable/ic_format_align_justify_black_24dp"
+            android:title="Kühe" />
+        <item
+            android:id="@+id/nav_inspections"
+            android:icon="@drawable/ic_content_paste_black_24dp"
+            android:title="Inspektion" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_import"
+                android:icon="@drawable/ic_undo_black_24dp"
+                android:title="Importieren" />
+            <item
+                android:id="@+id/nav_export"
+                android:icon="@drawable/ic_redo_black_24dp"
+                android:title="Exportieren" />
+        </menu>
+    </item>
+
+</menu>
