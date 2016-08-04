@@ -3,10 +3,16 @@ package com.denkmayr.andreas.ct800_client;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.denkmayr.andreas.ct800_client.Database.CowRepository;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +23,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CowFragment extends Fragment {
+    CowRepository cr;
+    ListView lvCows;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     // private static final String ARG_PARAM1 = "param1";
@@ -52,6 +60,8 @@ public class CowFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cr = CowRepository.getInstance(getActivity());
+
         if (getArguments() != null) {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
@@ -64,6 +74,14 @@ public class CowFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cow, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        lvCows = (ListView) getActivity().findViewById(R.id.lvCows);
+        lvCows.setAdapter(new CowAdapter(getActivity(), cr.getAllCows()));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -12,7 +12,7 @@
     tools:context="com.denkmayr.andreas.ct800_client.NavDrawerActivity"
     tools:showIn="@layout/app_bar_nav_drawer">
 
-    <
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"

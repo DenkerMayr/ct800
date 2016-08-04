@@ -14,6 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.denkmayr.andreas.ct800_client.Database.CowRepository;
+import com.denkmayr.andreas.ct800_client.Entity.Cow;
+
+import java.util.List;
+
 public class NavDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, CowFragment.OnFragmentInteractionListener {
 
@@ -45,6 +50,26 @@ public class NavDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         cowFragment = CowFragment.newInstance();
+
+
+        System.out.println("DEBUG START"); //DEBUG START TODO
+        CowRepository cr = CowRepository.getInstance(this);
+        cr.deleteAllCows();
+
+        for(int i = 0; i < 10; i++)
+        {
+            Cow cow = new Cow();
+            cow.setName("CowName"+i);
+            cow.setEartag("EarTag"+i);
+            cr.insertCow(cow);
+        }
+
+        List<Cow> cows = cr.getAllCows();
+        System.out.println("There were " + cows.size() + " Cows inserted!");
+        for (Cow cow : cows) {
+            System.out.println(cow.getEartag() + " | " + cow.getName());
+        }
+        System.out.println("DEBUG END"); //DEBUG START TODO
     }
 
     @Override
