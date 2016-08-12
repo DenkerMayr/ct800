@@ -13,16 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.denkmayr.andreas.ct800_client.Database.CowRepository;
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
+import com.denkmayr.andreas.ct800_client.Entity.Inspection;
 
 import java.util.List;
 
 public class NavDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, CowFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, CowListFragment.OnFragmentInteractionListener {
 
-    CowFragment cowFragment;
+    CowListFragment cowListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class NavDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        cowFragment = CowFragment.newInstance();
+        cowListFragment = CowListFragment.newInstance();
 
 
         System.out.println("DEBUG START"); //DEBUG START TODO
@@ -69,6 +71,13 @@ public class NavDrawerActivity extends AppCompatActivity
         for (Cow cow : cows) {
             System.out.println(cow.getEartag() + " | " + cow.getName());
         }
+
+        Inspection inspection = new Inspection();
+        Toast.makeText(this, inspection.getDateString(), Toast.LENGTH_SHORT).show();
+        inspection.setDateString("6-6-2016");
+        Toast.makeText(this, inspection.getDateString(), Toast.LENGTH_SHORT).show();
+
+
         System.out.println("DEBUG END"); //DEBUG START TODO
     }
 
@@ -113,7 +122,7 @@ public class NavDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_info) {
 
         } else if (id == R.id.nav_cows) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, cowFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, cowListFragment).commit();
         } else if (id == R.id.nav_inspections) {
 
         } else if (id == R.id.nav_import) {

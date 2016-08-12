@@ -8,21 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.denkmayr.andreas.ct800_client.Database.CowRepository;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CowFragment.OnFragmentInteractionListener} interface
+ * {@link CowListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CowFragment#newInstance} factory method to
+ * Use the {@link CowListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CowFragment extends Fragment {
+public class CowListFragment extends Fragment {
     CowRepository cr;
     ListView lvCows;
     // TODO: Rename parameter arguments, choose names that match
@@ -36,7 +34,7 @@ public class CowFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CowFragment() {
+    public CowListFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +45,11 @@ public class CowFragment extends Fragment {
      * //@param param1 Parameter 1.
      * //@param param2 Parameter 2.
      *
-     * @return A new instance of fragment CowFragment.
+     * @return A new instance of fragment CowListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CowFragment newInstance() {
-        CowFragment fragment = new CowFragment();
+    public static CowListFragment newInstance() {
+        CowListFragment fragment = new CowListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

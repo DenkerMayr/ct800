@@ -2,10 +2,33 @@ package com.denkmayr.andreas.ct800_client.Entity;
 
 public class Cow {
 
-    private String name;
     private String eartag;
+    private String name;
+    private Farmer farmer;
 
     public Cow() {
+    }
+
+    public Cow(String eartag) {
+        this.eartag = eartag;
+    }
+
+    public Cow(String eartag, String name) {
+        this(eartag);
+        this.name = name;
+    }
+
+    public Cow(String eartag, String name, Farmer farmer) {
+        this(eartag,name);
+        this.farmer = farmer;
+    }
+
+    public String getEartag() {
+        return eartag;
+    }
+
+    public void setEartag(String eartag) {
+        this.eartag = eartag;
     }
 
     public String getName() {
@@ -16,11 +39,11 @@ public class Cow {
         this.name = name;
     }
 
-    public String getEartag() {
-        return eartag;
+    public Farmer getFarmer() {
+        return farmer;
     }
 
-    public void setEartag(String eartag) {
-        this.eartag = eartag;
+    public void setFarmer(Farmer farmer) {
+        this.farmer = farmer;
     }
 }
