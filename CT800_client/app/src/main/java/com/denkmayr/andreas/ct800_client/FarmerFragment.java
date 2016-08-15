@@ -3,43 +3,38 @@ package com.denkmayr.andreas.ct800_client;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.denkmayr.andreas.ct800_client.Database.CowRepository;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CowListFragment.OnFragmentInteractionListener} interface
+ * {@link FarmerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CowListFragment#newInstance} factory method to
+ * Use the {@link FarmerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CowListFragment extends Fragment {
-    private CowRepository cr;
-    private ListView lvCows;
+public class FarmerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CowListFragment() {
+    public FarmerFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
-     * this fragment using the provided parameters
-     *
-     * @return A new instance of fragment CowListFragment.
+     * this fragment using the provided parameters.
+     *.
+     * @return A new instance of fragment FarmerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CowListFragment newInstance() {
-        CowListFragment fragment = new CowListFragment();
+    public static FarmerFragment newInstance() {
+        FarmerFragment fragment = new FarmerFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -48,23 +43,13 @@ public class CowListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cr = CowRepository.getInstance(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cow, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        lvCows = (ListView) getActivity().findViewById(R.id.lvCows);
-        lvCows.setAdapter(new CowAdapter(getActivity(), cr.getAllCows()));
+        return inflater.inflate(R.layout.fragment_farmer, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -18,13 +18,15 @@ import android.widget.Toast;
 import com.denkmayr.andreas.ct800_client.Database.CowRepository;
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
 import com.denkmayr.andreas.ct800_client.Entity.Inspection;
+import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 import java.util.List;
 
 public class NavDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, CowListFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
 
     CowListFragment cowListFragment;
+    FarmerFragment farmerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class NavDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         cowListFragment = CowListFragment.newInstance();
+        farmerFragment = FarmerFragment.newInstance();
 
 
         System.out.println("DEBUG START"); //DEBUG START TODO
@@ -119,8 +122,8 @@ public class NavDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_info) {
-
+        if (id == R.id.nav_farmer) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, farmerFragment).commit();
         } else if (id == R.id.nav_cows) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, cowListFragment).commit();
         } else if (id == R.id.nav_inspections) {
