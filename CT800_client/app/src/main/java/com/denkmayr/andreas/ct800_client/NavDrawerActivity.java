@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.denkmayr.andreas.ct800_client.Database.CowRepository;
+import com.denkmayr.andreas.ct800_client.Database.FarmerRepository;
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
+import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Entity.Inspection;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
@@ -54,10 +56,22 @@ public class NavDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         cowListFragment = CowListFragment.newInstance();
-        farmerFragment = FarmerFragment.newInstance();
 
 
         System.out.println("DEBUG START"); //DEBUG START TODO
+
+
+        //TODO Find relevant Farmer
+        Farmer farmer = new Farmer(
+                "VName NName",
+                "asdf.jklö@gmail.com",
+                "City",
+                "12345",
+                "Street",
+                "13");
+
+        farmerFragment = FarmerFragment.newInstance(farmer);
+
         CowRepository cr = CowRepository.getInstance(this);
         cr.deleteAllCows();
 
@@ -73,6 +87,28 @@ public class NavDrawerActivity extends AppCompatActivity
         System.out.println("There were " + cows.size() + " Cows inserted!");
         for (Cow cow : cows) {
             System.out.println(cow.getEartag() + " | " + cow.getName());
+        }
+
+        FarmerRepository fr = FarmerRepository.getInstance(this);
+        fr.deleteAllFarmers();
+
+        for(int i = 0; i < 10; i++)
+        {
+            Farmer newFarmer = new Farmer();
+            newFarmer.setName("FarmerName"+i);
+            newFarmer.setEmail("FarmerEmail"+i);
+            newFarmer.setResidence("FarmerResidence"+i);
+            newFarmer.setZip("123"+i);
+            newFarmer.setStreet("FarmerStreet"+i);
+            newFarmer.setStreetNumber("" + i);
+            fr.insertFarmer(newFarmer);
+        }
+
+        List<Farmer> farmers = fr.getAllFarmers();
+        System.out.println("There were " + farmers.size() + " Farmers inserted!");
+        for (Farmer f : farmers) {
+            System.out.println(f.getName() + " | " + f.getEmail() + " | " + f.getResidence()
+                    + " | " + f.getZip() + " | " + f.getStreet() + " | " + f.getStreetNumber());
         }
 
         Inspection inspection = new Inspection();
@@ -116,13 +152,13 @@ public class NavDrawerActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_farmer) {
+            //TODO Remove farmerFragment.setArguments(farmerFragment.getArguments().putParcelable("farmer",farmer));
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, farmerFragment).commit();
         } else if (id == R.id.nav_cows) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFraPlace, cowListFragment).commit();

@@ -5,7 +5,7 @@
     android:padding="6dip" >
 
     <ImageView
-        android:id="@+id/cowItemIcon"
+        android:id="@+id/farmerItemIcon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
@@ -14,26 +14,26 @@
         android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/cowItemText"
+        android:id="@+id/farmerItemText"
         android:layout_width="fill_parent"
         android:layout_height="26dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/cowItemIcon"
+        android:layout_toRightOf="@id/farmerItemIcon"
         android:ellipsize="marquee"
         android:maxLines="1"
         android:text="Name"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/cowItemHeader"
+        android:id="@+id/farmerItemHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/cowItemText"
+        android:layout_above="@id/farmerItemText"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/cowItemIcon"
+        android:layout_toRightOf="@id/farmerItemIcon"
         android:gravity="center_vertical"
         android:text="Eartag"
         android:textSize="16sp" />

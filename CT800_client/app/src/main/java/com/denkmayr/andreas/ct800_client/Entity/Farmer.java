@@ -1,6 +1,9 @@
 package com.denkmayr.andreas.ct800_client.Entity;
 
-public class Farmer {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Farmer implements Parcelable{
     private String name;
     private String email;
     private String zip;
@@ -8,6 +11,7 @@ public class Farmer {
     private String street;
     private String streetNumber;
 
+    public Farmer() {}
 
     public Farmer(String name) {
         this.name = name;
@@ -18,7 +22,7 @@ public class Farmer {
         this.email = email;
     }
 
-    public Farmer(String name, String email, String zip, String residence, String street, String streetNumber) {
+    public Farmer(String name, String email, String residence, String zip, String street, String streetNumber) {
         this(name,email);
         this.zip = zip;
         this.residence = residence;
@@ -73,4 +77,38 @@ public class Farmer {
     public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getName());
+        dest.writeString(getEmail());
+        dest.writeString(getResidence());
+        dest.writeString(getZip());
+        dest.writeString(getStreet());
+        dest.writeString(getStreetNumber());
+    }
+
+    public  static final Parcelable.Creator<Farmer> CREATOR =
+            new Parcelable.Creator<Farmer>(){
+                @Override
+                public Farmer createFromParcel(Parcel source) {
+                    return new Farmer(
+                            source.readString(), //Name
+                            source.readString(), //Email
+                            source.readString(), //Residence
+                            source.readString(), //Zip
+                            source.readString(), //Street
+                            source.readString()); //StreetNumber
+                }
+
+                @Override
+                public Farmer[] newArray(int size) {
+                    return new Farmer[size];
+                }
+            };
 }

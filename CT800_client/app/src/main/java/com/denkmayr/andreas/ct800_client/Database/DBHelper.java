@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.denkmayr.andreas.ct800_client.Database.DBContract.CowEntry;
+import com.denkmayr.andreas.ct800_client.Database.DBContract.FarmerEntry;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "ClawTrimmerDB";
@@ -23,17 +24,31 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //Cowtable
         db.execSQL("CREATE TABLE " + CowEntry.TABLE_NAME +
         " (" +
                 CowEntry.COLUMN_ROWID + " integer primary key autoincrement, " +
                 CowEntry.COLUMN_EARTAG + " text not null, " +
-                CowEntry.COLUMN_NAME + " text not null" +
+                CowEntry.COLUMN_NAME + " text" +
         ");");
+
+        //Farmertable
+        db.execSQL("CREATE TABLE " + FarmerEntry.TABLE_NAME +
+                " (" +
+                FarmerEntry.COLUMN_ROWID + " integer primary key autoincrement, " +
+                FarmerEntry.COLUMN_NAME + " text, " +
+                FarmerEntry.COLUMN_EMAIL + " text, " +
+                FarmerEntry.COLUMN_RESIDENCY + " text, " +
+                FarmerEntry.COLUMN_ZIP + " text, " +
+                FarmerEntry.COLUMN_STREET + " text, " +
+                FarmerEntry.COLUMN_STREETNUMBER + " text" +
+                ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CowEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FarmerEntry.TABLE_NAME);
         onCreate(db);
     }
 
@@ -41,5 +56,4 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-
 }

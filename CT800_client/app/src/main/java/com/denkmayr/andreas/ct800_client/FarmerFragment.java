@@ -1,19 +1,30 @@
 package com.denkmayr.andreas.ct800_client;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.text.method.KeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.ToggleButton;
 
+import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FarmerFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link FarmerFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -21,6 +32,19 @@ import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListene
 public class FarmerFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+
+    private Farmer farmer;
+
+    private EditText etName;
+    private EditText etEmail;
+    private EditText etResidence;
+    private EditText etZip;
+    private EditText etStreet;
+    private EditText etStreetNumber;
+    private Button btSave;
+    private Button btCancel;
+    private ToggleButton toggleEditMode;
+    private Button btChangeFarmer;
 
     public FarmerFragment() {
         // Required empty public constructor
@@ -32,10 +56,10 @@ public class FarmerFragment extends Fragment {
      *.
      * @return A new instance of fragment FarmerFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static FarmerFragment newInstance() {
+    public static FarmerFragment newInstance(Farmer farmer) {
         FarmerFragment fragment = new FarmerFragment();
         Bundle args = new Bundle();
+        args.putParcelable("farmer", farmer);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,6 +75,82 @@ public class FarmerFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_farmer, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        etName = (EditText) getActivity().findViewById(R.id.etFartmerName);
+        etEmail = (EditText) getActivity().findViewById(R.id.etFarmerEmail);
+        etResidence = (EditText) getActivity().findViewById(R.id.etFarmerResidence);
+        etZip = (EditText) getActivity().findViewById(R.id.etFarmerZip);
+        etStreet = (EditText) getActivity().findViewById(R.id.etFarmerStreet);
+        etStreetNumber = (EditText) getActivity().findViewById(R.id.etFarmerStreetNumber);
+        btSave = (Button) getActivity().findViewById(R.id.btFarmerSave);
+        btCancel = (Button) getActivity().findViewById(R.id.btFarmerCancel);
+        toggleEditMode = (ToggleButton) getActivity().findViewById(R.id.toggleFarmerEditMode);
+        btChangeFarmer = (Button) getActivity().findViewById(R.id.btFarmerPopup);
+
+        toggleEditMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAction();
+                setEditMode(toggleEditMode.isChecked());
+            }
+        });
+
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveAction();
+                setEditMode(false);
+                toggleEditMode.setChecked(false);
+            }
+        });
+
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAction();
+                setEditMode(false);
+                toggleEditMode.setChecked(false);
+            }
+        });
+
+        btChangeFarmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //showPopup(v);
+                FarmerListFragment farmerListFragment = FarmerListFragment.newInstance();
+                farmerListFragment.show(getActivity().getSupportFragmentManager(), "choose_farmer");
+            }
+        });
+
+        //Get farmer and set fields with relevant information
+        farmer = getArguments().getParcelable("farmer");
+        etName.setText(farmer.getName());
+        etEmail.setText(farmer.getEmail());
+        etResidence.setText(farmer.getResidence());
+        etZip.setText(farmer.getZip());
+        etStreet.setText(farmer.getStreet());
+        etStreetNumber.setText(farmer.getStreetNumber());
+
+        setEditMode(false);
+    }
+
+    /*
+    private void showPopup(View anchorView) {
+        View popupView = getActivity().getLayoutInflater()
+                .inflate(R.layout.fragment_farmer_list, null);
+        PopupWindow popupWindow = new PopupWindow(popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        ListView lvFarmers = (ListView) getActivity().findViewById(R.id.lvFarmers);
+
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+    }
+*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -74,5 +174,52 @@ public class FarmerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void setEditMode(Boolean editMode)
+    {
+        //Black as TextColor
+        etName.setTextColor(Color.BLACK);
+        etEmail.setTextColor(Color.BLACK);
+        etResidence.setTextColor(Color.BLACK);
+        etZip.setTextColor(Color.BLACK);
+        etStreet.setTextColor(Color.BLACK);
+        etStreetNumber.setTextColor(Color.BLACK);
+
+        //Enable or disable all Fields
+        etName.setEnabled(editMode);
+        etEmail.setEnabled(editMode);
+        etResidence.setEnabled(editMode);
+        etZip.setEnabled(editMode);
+        etStreet.setEnabled(editMode);
+        etStreetNumber.setEnabled(editMode);
+        if(editMode) //Show save and Edit-Buttons in editMode otherwise disable them
+        {
+            btSave.setVisibility(View.VISIBLE);
+            btCancel.setVisibility(View.VISIBLE);
+        } else {
+            btSave.setVisibility(View.INVISIBLE);
+            btCancel.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void saveAction() {
+        farmer.setName(etName.getText().toString());
+        farmer.setEmail(etEmail.getText().toString());
+        farmer.setResidence(etResidence.getText().toString());
+        farmer.setZip(etZip.getText().toString());
+        farmer.setStreet(etStreet.getText().toString());
+        farmer.setStreetNumber(etStreetNumber.getText().toString());
+
+        //TODO update in DB
+    }
+
+    private void cancelAction() {
+        etName.setText(farmer.getName());
+        etEmail.setText(farmer.getEmail());
+        etResidence.setText(farmer.getResidence());
+        etZip.setText(farmer.getZip());
+        etStreet.setText(farmer.getStreet());
+        etStreetNumber.setText(farmer.getStreetNumber());
     }
 }

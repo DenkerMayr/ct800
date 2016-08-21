@@ -12,4 +12,15 @@ public class DBContract {
         public static final String COLUMN_EARTAG = "eartag";
         public static final String COLUMN_NAME = "name";
     }
+
+    public static final class FarmerEntry implements BaseColumns {
+        public static final String TABLE_NAME = "farmers";
+        public static final String COLUMN_ROWID = "_id";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_RESIDENCY = "residency";
+        public static final String COLUMN_ZIP = "zip";
+        public static final String COLUMN_STREET = "street";
+        public static final String COLUMN_STREETNUMBER = "streetnumber";
+    }
 }

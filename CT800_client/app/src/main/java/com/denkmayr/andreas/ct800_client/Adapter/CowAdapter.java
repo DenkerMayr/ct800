@@ -1,4 +1,4 @@
-package com.denkmayr.andreas.ct800_client;
+package com.denkmayr.andreas.ct800_client.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
+import com.denkmayr.andreas.ct800_client.R;
 
 import java.util.List;
 
@@ -29,10 +30,11 @@ public class CowAdapter extends ArrayAdapter {
         View rowView = inflater.inflate(R.layout.list_item_cow, parent, false);
         TextView header = (TextView) rowView.findViewById(R.id.cowItemHeader);
         TextView text = (TextView) rowView.findViewById(R.id.cowItemText);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.cowItemIcon);
 
         header.setText(mValues.get(position).getEartag());
         text.setText(mValues.get(position).getName());
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        imageView.setImageResource(R.drawable.ic_photo_size_select_actual_black_24dp);
 
         return rowView;
     }
