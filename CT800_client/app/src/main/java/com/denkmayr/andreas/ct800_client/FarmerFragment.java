@@ -168,6 +168,7 @@ public class FarmerFragment extends Fragment implements OnChooseFarmerDialogFini
 
     private void setEditMode(Boolean editMode)
     {
+        etName.requestFocus();
         //Black as TextColor
         etName.setTextColor(Color.BLACK);
         etEmail.setTextColor(Color.BLACK);

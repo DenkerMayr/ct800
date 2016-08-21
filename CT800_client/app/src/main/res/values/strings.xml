@@ -23,12 +23,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save">Save</string>
-    <string name="exampleStreet">Beispielstraße</string>
+    <string name="exampleStreet">ExampleStreet</string>
     <string name="exampleEmail">email.example@gmail.com</string>
-    <string name="exampleResidency">Beispielstadt</string>
+    <string name="exampleResidency">ExampleResidency</string>
     <string name="exampleStreetNumber">23</string>
     <string name="exampleZip">12345</string>
     <string name="cancel">Cancel</string>
-    <string name="exampleName">Vorname Nachname</string>
+    <string name="exampleName">Firstname Lastname</string>
     <string name="changeFarmer">Change Farmer</string>
+    <string name="hintFarmerName">Firstname &amp; Lastname</string>
+    <string name="hintFarmerEmail">Email</string>
+    <string name="hintFarmerResidence">Residence</string>
+    <string name="hintFarmerZip">Zipcode</string>
+    <string name="hintFarmerStreet">Street</string>
+    <string name="hintFarmerStreetNumber">StreetNr.</string>
 </resources>
