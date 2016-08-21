@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.denkmayr.andreas.ct800_client.Adapter.CowAdapter;
 import com.denkmayr.andreas.ct800_client.Adapter.FarmerAdapter;
 import com.denkmayr.andreas.ct800_client.Database.FarmerRepository;
+import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 /**
@@ -24,13 +26,13 @@ import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListene
  * Use the {@link FarmerListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FarmerListFragment extends DialogFragment {
+public class FarmerListFragment extends DialogFragment implements AdapterView.OnItemClickListener {
 
     private OnFragmentInteractionListener mListener;
 
-    FarmerRepository fr;
+    private FarmerRepository fr;
 
-    ListView lvFarmers;
+    private ListView lvFarmers;
 
     public FarmerListFragment() {
         // Required empty public constructor
@@ -42,7 +44,7 @@ public class FarmerListFragment extends DialogFragment {
      * @return A new instance of fragment FarmerListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FarmerListFragment newInstance() {
+    static FarmerListFragment newInstance() {
         FarmerListFragment fragment = new FarmerListFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -58,19 +60,17 @@ public class FarmerListFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_farmer_list, container, false);
-        getDialog().setTitle("Choose a Farmer!");
-        lvFarmers = (ListView) view.findViewById(R.id.lvFarmers);
-        lvFarmers.setAdapter(new FarmerAdapter(getActivity(), fr.getAllFarmers()));
-
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_farmer_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().setTitle("Choose a Farmer!");
+        lvFarmers = (ListView) view.findViewById(R.id.lvFarmers);
+        lvFarmers.setAdapter(new FarmerAdapter(getActivity(), fr.getAllFarmers()));
+        lvFarmers.setOnItemClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,5 +95,15 @@ public class FarmerListFragment extends DialogFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FarmerFragment farmerFragment = (FarmerFragment) fm.findFragmentById(R.id.mainFraPlace);
+
+        //Set this farmer as the current Farmer
+        farmerFragment.onFinishChooseFarmer((Farmer) adapterView.getItemAtPosition(i));
+        this.dismiss();
     }
 }

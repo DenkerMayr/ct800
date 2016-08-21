@@ -2,23 +2,19 @@ package com.denkmayr.andreas.ct800_client;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
-import android.text.method.KeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.ToggleButton;
 
 import com.denkmayr.andreas.ct800_client.Entity.Farmer;
+import com.denkmayr.andreas.ct800_client.Interfaces.OnChooseFarmerDialogFinished;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 /**
@@ -29,7 +25,7 @@ import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListene
  * Use the {@link FarmerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FarmerFragment extends Fragment {
+public class FarmerFragment extends Fragment implements OnChooseFarmerDialogFinished {
 
     private OnFragmentInteractionListener mListener;
 
@@ -56,7 +52,7 @@ public class FarmerFragment extends Fragment {
      *.
      * @return A new instance of fragment FarmerFragment.
      */
-    public static FarmerFragment newInstance(Farmer farmer) {
+    static FarmerFragment newInstance(Farmer farmer) {
         FarmerFragment fragment = new FarmerFragment();
         Bundle args = new Bundle();
         args.putParcelable("farmer", farmer);
@@ -94,7 +90,7 @@ public class FarmerFragment extends Fragment {
         toggleEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelAction();
+                refreshFields();
                 setEditMode(toggleEditMode.isChecked());
             }
         });
@@ -111,7 +107,7 @@ public class FarmerFragment extends Fragment {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelAction();
+                refreshFields(); //Cancel by refreshing all fields
                 setEditMode(false);
                 toggleEditMode.setChecked(false);
             }
@@ -120,43 +116,37 @@ public class FarmerFragment extends Fragment {
         btChangeFarmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //showPopup(v);
-                FarmerListFragment farmerListFragment = FarmerListFragment.newInstance();
-                farmerListFragment.show(getActivity().getSupportFragmentManager(), "choose_farmer");
+                showPopup();
             }
         });
 
         //Get farmer and set fields with relevant information
         farmer = getArguments().getParcelable("farmer");
-        etName.setText(farmer.getName());
-        etEmail.setText(farmer.getEmail());
-        etResidence.setText(farmer.getResidence());
-        etZip.setText(farmer.getZip());
-        etStreet.setText(farmer.getStreet());
-        etStreetNumber.setText(farmer.getStreetNumber());
+
+        if (farmer != null) {
+            etName.setText(farmer.getName());
+            etEmail.setText(farmer.getEmail());
+            etResidence.setText(farmer.getResidence());
+            etZip.setText(farmer.getZip());
+            etStreet.setText(farmer.getStreet());
+            etStreetNumber.setText(farmer.getStreetNumber());
+        }
 
         setEditMode(false);
     }
 
-    /*
-    private void showPopup(View anchorView) {
-        View popupView = getActivity().getLayoutInflater()
-                .inflate(R.layout.fragment_farmer_list, null);
-        PopupWindow popupWindow = new PopupWindow(popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        ListView lvFarmers = (ListView) getActivity().findViewById(R.id.lvFarmers);
-
-        popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable());
-    }
-*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private void showPopup() {
+        FarmerListFragment farmerListFragment = FarmerListFragment.newInstance();
+        farmerListFragment.show(getActivity().getSupportFragmentManager(), "choose_farmer");
     }
 
     @Override
@@ -214,12 +204,18 @@ public class FarmerFragment extends Fragment {
         //TODO update in DB
     }
 
-    private void cancelAction() {
+    private void refreshFields() {
         etName.setText(farmer.getName());
         etEmail.setText(farmer.getEmail());
         etResidence.setText(farmer.getResidence());
         etZip.setText(farmer.getZip());
         etStreet.setText(farmer.getStreet());
         etStreetNumber.setText(farmer.getStreetNumber());
+    }
+
+    @Override
+    public void onFinishChooseFarmer(Farmer selectedFarmer) {
+        farmer = selectedFarmer;
+        refreshFields();
     }
 }
