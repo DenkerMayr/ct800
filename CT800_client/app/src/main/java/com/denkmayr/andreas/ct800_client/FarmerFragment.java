@@ -5,12 +5,12 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import com.denkmayr.andreas.ct800_client.Entity.Farmer;
@@ -31,12 +31,12 @@ public class FarmerFragment extends Fragment implements OnChooseFarmerDialogFini
 
     private Farmer farmer;
 
-    private EditText etName;
-    private EditText etEmail;
-    private EditText etResidence;
-    private EditText etZip;
-    private EditText etStreet;
-    private EditText etStreetNumber;
+    private TextInputEditText etName;
+    private TextInputEditText etEmail;
+    private TextInputEditText etResidence;
+    private TextInputEditText etZip;
+    private TextInputEditText etStreet;
+    private TextInputEditText etStreetNumber;
     private Button btSave;
     private Button btCancel;
     private ToggleButton toggleEditMode;
@@ -76,12 +76,12 @@ public class FarmerFragment extends Fragment implements OnChooseFarmerDialogFini
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        etName = (EditText) getActivity().findViewById(R.id.etFartmerName);
-        etEmail = (EditText) getActivity().findViewById(R.id.etFarmerEmail);
-        etResidence = (EditText) getActivity().findViewById(R.id.etFarmerResidence);
-        etZip = (EditText) getActivity().findViewById(R.id.etFarmerZip);
-        etStreet = (EditText) getActivity().findViewById(R.id.etFarmerStreet);
-        etStreetNumber = (EditText) getActivity().findViewById(R.id.etFarmerStreetNumber);
+        etName = (TextInputEditText) getActivity().findViewById(R.id.etFartmerName);
+        etEmail = (TextInputEditText) getActivity().findViewById(R.id.etFarmerEmail);
+        etResidence = (TextInputEditText) getActivity().findViewById(R.id.etFarmerResidence);
+        etZip = (TextInputEditText) getActivity().findViewById(R.id.etFarmerZip);
+        etStreet = (TextInputEditText) getActivity().findViewById(R.id.etFarmerStreet);
+        etStreetNumber = (TextInputEditText) getActivity().findViewById(R.id.etFarmerStreetNumber);
         btSave = (Button) getActivity().findViewById(R.id.btFarmerSave);
         btCancel = (Button) getActivity().findViewById(R.id.btFarmerCancel);
         toggleEditMode = (ToggleButton) getActivity().findViewById(R.id.toggleFarmerEditMode);
