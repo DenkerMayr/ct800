@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.denkmayr.andreas.ct800_client.Adapter.FarmerAdapter;
-import com.denkmayr.andreas.ct800_client.Database.FarmerRepository;
+import com.denkmayr.andreas.ct800_client.Database.Repositories.FarmerRepository;
 import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 

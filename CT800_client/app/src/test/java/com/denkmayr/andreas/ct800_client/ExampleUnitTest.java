@@ -1,9 +1,5 @@
 package com.denkmayr.andreas.ct800_client;
 
-import android.app.Application;
-
-import com.denkmayr.andreas.ct800_client.Database.CowRepository;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;

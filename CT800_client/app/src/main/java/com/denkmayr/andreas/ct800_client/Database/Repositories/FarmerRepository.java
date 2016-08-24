@@ -1,10 +1,12 @@
-package com.denkmayr.andreas.ct800_client.Database;
+package com.denkmayr.andreas.ct800_client.Database.Repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.denkmayr.andreas.ct800_client.Database.DBHelper;
 import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Database.DBContract.FarmerEntry;
 import java.util.ArrayList;

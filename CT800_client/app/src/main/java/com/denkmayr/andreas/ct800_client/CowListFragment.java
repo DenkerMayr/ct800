@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.denkmayr.andreas.ct800_client.Adapter.CowAdapter;
-import com.denkmayr.andreas.ct800_client.Database.CowRepository;
+import com.denkmayr.andreas.ct800_client.Database.Repositories.CowRepository;
 import com.denkmayr.andreas.ct800_client.Interfaces.OnFragmentInteractionListener;
 
 /**

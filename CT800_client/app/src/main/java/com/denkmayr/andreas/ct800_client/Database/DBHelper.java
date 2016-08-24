@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.denkmayr.andreas.ct800_client.Database.DBContract.CowEntry;
 import com.denkmayr.andreas.ct800_client.Database.DBContract.FarmerEntry;
+import com.denkmayr.andreas.ct800_client.Database.DBContract.KeyValueEntry;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "ClawTrimmerDB";
@@ -24,13 +25,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //KeyValuetable
+        db.execSQL("CREATE TABLE " + KeyValueEntry.TABLE_NAME +
+                " (" +
+                KeyValueEntry.COLUMN_ROWID + " integer primary key autoincrement, " +
+                KeyValueEntry.COLUMN_KEY + " text not null unique, " +
+                KeyValueEntry.COLUMN_VALUE + " text" +
+                ");");
+
         //Cowtable
         db.execSQL("CREATE TABLE " + CowEntry.TABLE_NAME +
-        " (" +
+                " (" +
                 CowEntry.COLUMN_ROWID + " integer primary key autoincrement, " +
                 CowEntry.COLUMN_EARTAG + " text not null, " +
                 CowEntry.COLUMN_NAME + " text" +
-        ");");
+                ");");
 
         //Farmertable
         db.execSQL("CREATE TABLE " + FarmerEntry.TABLE_NAME +

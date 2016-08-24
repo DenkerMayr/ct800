@@ -15,8 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.denkmayr.andreas.ct800_client.Database.CowRepository;
-import com.denkmayr.andreas.ct800_client.Database.FarmerRepository;
+import com.denkmayr.andreas.ct800_client.Database.Repositories.CowRepository;
+import com.denkmayr.andreas.ct800_client.Database.Repositories.FarmerRepository;
+import com.denkmayr.andreas.ct800_client.Database.Repositories.KeyValueRepository;
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
 import com.denkmayr.andreas.ct800_client.Entity.Farmer;
 import com.denkmayr.andreas.ct800_client.Entity.Inspection;
@@ -111,11 +112,15 @@ public class NavDrawerActivity extends AppCompatActivity
                     + " | " + f.getZip() + " | " + f.getStreet() + " | " + f.getStreetNumber());
         }
 
+        /*
         Inspection inspection = new Inspection();
         Toast.makeText(this, inspection.getDateString(), Toast.LENGTH_SHORT).show();
         inspection.setDateString("6-6-2016");
         Toast.makeText(this, inspection.getDateString(), Toast.LENGTH_SHORT).show();
+        */
 
+        KeyValueRepository kvr = KeyValueRepository.getInstance(this);
+        Toast.makeText(this,kvr.getKeyValue("swag"),Toast.LENGTH_SHORT).show();
 
         System.out.println("DEBUG END"); //DEBUG START TODO
     }

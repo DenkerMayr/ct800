@@ -1,4 +1,4 @@
-package com.denkmayr.andreas.ct800_client.Database;
+package com.denkmayr.andreas.ct800_client.Database.Repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.denkmayr.andreas.ct800_client.Database.DBContract.CowEntry;
 
+import com.denkmayr.andreas.ct800_client.Database.DBHelper;
 import com.denkmayr.andreas.ct800_client.Entity.Cow;
 
 import java.util.ArrayList;

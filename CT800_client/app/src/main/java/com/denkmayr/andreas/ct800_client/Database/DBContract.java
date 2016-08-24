@@ -23,4 +23,12 @@ public class DBContract {
         public static final String COLUMN_STREET = "street";
         public static final String COLUMN_STREETNUMBER = "streetnumber";
     }
+
+    public static final class KeyValueEntry implements BaseColumns {
+        public static final String TABLE_NAME = "keyvalue";
+        public static final String COLUMN_ROWID = "_id";
+        public static final String COLUMN_KEY = "key";
+        public static final String COLUMN_VALUE = "value";
+
+    }
 }
